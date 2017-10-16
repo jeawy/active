@@ -1,0 +1,120 @@
+{% extends 'base.html' %} 
+{% block css %}
+
+    <link href="/static/vendors/dropdown/jquery.dropdown.css" rel="stylesheet">
+    <link href="/static/vendors//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	  <link href="/static/vendors/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <link href="/static/products/css/detail.css"  rel="stylesheet">
+   
+    {% endblock %} 
+
+   
+    {% block content %}
+    <!-- detail start -->
+       <div class="container div-detail">
+         <input type="hidden" value="{{product.id}}" id="productid"/>
+          <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8 ">
+                {% if product.thumbnail %}
+                <img src="{{mediaroot}}{{product.thumbnail}}" class="bigimage" />
+                {% else %}
+                <img src="/static/images/5.png" class="bigimage" />
+                {% endif %}
+             
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 ">
+              <div class="div-detail-right-top">
+                      <div class="div-detail-date">
+                        <p class="p-detail-date" >{{product.date|date:'Y-m-d  '}} </p>
+                      </div>
+                      <div class="div-detail-name">
+                        <p class="p-detail-name" >{{product.title}}  </p>
+                      </div>
+                      <div class="div-detail-price">
+                        <p class="p-detail-price" >${{product.pricefrom}} -${{product.priceto}} </p>
+                      </div>
+                      <div class="div-btn-book">
+                        
+                      </div>
+                </div>
+            </div>
+          </div><!-- end pic and title -->
+          <div class="col-sm-12 col-md-12 col-lg-12  ">
+                <div class="div-detail-fa  ">
+                    <i class="fa fa-upload  " aria-hidden="true"></i>
+                    <i class="fa fa-bookmark-o  " aria-hidden="true"></i>
+                </div> 
+           </div>
+
+          <div class="col-sm-12 col-md-9 col-lg-9  ">
+                <p class="desciption-title"> DESCRIPTION</p>
+                {{product.description|safe}}
+           </div>
+          
+           <div class="col-sm-12 col-md-3 col-lg-3  ">
+             <div class="div-content-date">
+                <p class="content-date-title"> DATE AND TIME</p>
+                <p  class="content-date-content">
+                  {{product.datefrom|date:'Y-m-d H:i'}}
+                </p>
+             </div><!-- END DATE -->
+              <div class="div-content-location">
+                <p class="content-location-title">LOCATION</p>
+                <p class="content-location-content">
+                  {{product.location}}
+                </p>
+             </div><!-- END LOCATION -->
+           </div>
+           <div class="col-sm-12 col-md-12 col-lg-12  "> 
+           {% if product.adaptorattendcy_set.all %}
+           <table class="table">
+              <tr><th colspan="3">报名人员：</th></tr>
+             <tr><th>姓名</th><th>电话</th> </tr>
+             {% for attendcy in product.adaptorattendcy_set.all %}
+             <tr>
+               <td>{{attendcy.name}}</td>
+               <td>{{attendcy.phone}}</td>
+               <!--<td>{{attendcy.quantity}}</td>-->
+             </tr>
+             {% endfor %}
+            
+           </table>
+           <a class="btn-output btn btn-default" href="{% url 'product:attendcies' product.id %}?output" target="__blank">导出报名表</a>
+           {% else %}
+           没有人报名
+           {% endif %}
+       </div>
+           <div class="col-sm-12 col-md-12 col-lg-12 text-center  "> 
+        
+                    <div class="div-tag-share">
+                      <p class="p-tag-share">SHARE:</p>
+                    </div>
+                    <div class="div-tag-btn">
+                      <button class="tag-btn-share">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                      </button>
+                      <button class="tag-btn-share">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                      </button>
+                      <button class="tag-btn-share">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                      </button>
+                      <button class="tag-btn-share">
+                        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                      </button>
+                      <button class="tag-btn-share">
+                        <i class="fa fa-qq" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                
+           </div>
+            
+       </div><!-- END ROW -->
+
+  </div>
+ 
+  {% endblock %} 
+    <!-- detail end -->
+    {% block js %}
+  
+    {% endblock %}

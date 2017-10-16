@@ -1,0 +1,127 @@
+{% extends 'base.html' %} 
+{% block css %}
+    <link href="/static/products/css/detail.css"  rel="stylesheet">
+   
+    {% endblock %} 
+
+   
+    {% block content %}
+    <!-- detail start -->
+       <div class="container div-detail">
+         <input type="hidden" value="{{product.id}}" id="productid"/>
+         <input type="hidden" value="{{product.set_homepage}}" id="set_homepage"/>
+         <input type="hidden" value="{{product.set_grid}}" id="set_grid"/>
+         {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8 ">
+                {% if product.thumbnail %}
+                <img src="{{mediaroot}}{{product.thumbnail}}" class="bigimage" />
+                {% else %}
+                <img src="/static/images/5.png" class="bigimage" />
+                {% endif %}
+             
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 ">
+              <div class="div-detail-right-top">
+                      <div class="div-detail-date">
+                        <p class="p-detail-date" >{{product.date|date:'Y-m-d'}} </p>
+                      </div>
+                      <div class="div-detail-name">
+                        <p class="p-detail-name" >{{product.title}}  </p>
+                      </div>
+                      <div class="div-detail-price">
+                        <p class="p-detail-price" >${{product.pricefrom}} -${{product.priceto}} </p>
+                      </div>
+                      <div class="div-btn-book">
+                        {% if product.set_homepage %}
+                          <button class="btn-book btn-book-set-homepage" sethomepage ="0" >从首页轮播图移除</button>
+                          {% else %}
+                          <button class="btn-book btn-book-set-homepage" sethomepage ="1"  >设置到首页轮播图</button>
+                          {% endif %}
+                          {% if product.set_grid %}
+                          <button class="btn-book btn-book-set-grid" setgrid ="0">从首页Grid列表移除</button>
+                          {% else %}
+                          <button class="btn-book btn-book-set-grid" setgrid ="1">设置到首页Grid列表</button>
+                          {% endif %}
+                          <button  class="btn-delete  " id="btn-delete" data-toggle="confirmation" >删除活动</button>
+                          
+                        </div>
+                </div>
+            </div>
+          </div><!-- end pic and title -->
+          <div class="col-sm-12 col-md-12 col-lg-12  ">
+                <div class="div-detail-fa  ">
+                    <i class="fa fa-upload  " aria-hidden="true"></i>
+                    <i class="fa fa-bookmark-o  " aria-hidden="true"></i>
+                </div> 
+           </div>
+
+          <div class="col-sm-12 col-md-9 col-lg-9  ">
+                <p class="desciption-title"> DESCRIPTION</p>
+                {{product.description|safe}}
+           </div>
+          
+           <div class="col-sm-12 col-md-3 col-lg-3  ">
+             <div class="div-content-date">
+                <p class="content-date-title"> DATE AND TIME</p>
+                <p  class="content-date-content">
+                  {{product.datefrom|date:'Y-m-d H:i'}} 
+                </p>
+             </div><!-- END DATE -->
+              <div class="div-content-location">
+                <p class="content-location-title">LOCATION</p>
+                <p class="content-location-content">
+                  {{product.location}}
+                </p>
+             </div><!-- END LOCATION -->
+           </div>
+     
+       
+           </div>
+            
+       </div><!-- END ROW -->
+
+  </div>
+ 
+  {% endblock %} 
+    <!-- detail end -->
+    {% block js %}
+    <script src="/static/vendors/Bootstrap-Confirmation/bootstrap-confirmation.js"></script>
+    <script src="/static/products/js/setting.js"></script> 
+    <script>
+    var currency = '';
+  $('.btn-delete').confirmation({
+    rootSelector: '#btn-delete',
+    container: 'body',
+    title: '确定删除?',
+    onConfirm: function(currency) {
+          var product = $('#productid');
+          data = {}
+          
+              data['id'] = product.val();
+              data['method'] = 'delete'; //
+              data['csrfmiddlewaretoken'] = getCookie('csrftoken');  
+          $.ajax({
+              type: 'post',
+              url: '/product/products/',
+              data: data,
+              success: function(result) {
+                  if(result['status'] == 'ok'){
+                      $().message(result['msg']);
+                      setTimeout(function() {
+                          window.location.href="/product/products/";
+                      }, 3000);
+                  }else{
+                      $().errormessage(result['msg']);
+                  } 
+              },
+              error: function() {
+                  // 500
+                  alert('server is down!')
+              }
+          }) 
+    } ,
+    btnOkLabel:'确定',
+    btnCancelLabel:'取消',
+  });</script>
+    {% endblock %}

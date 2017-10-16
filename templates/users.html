@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% load staticfiles %} {% block css %}
+<link href="/static/css/userlist.css" rel="stylesheet"> {% endblock %} {% block content %}
+<div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>email</th>
+                    <th>权限设置</th>
+                </tr>
+            </thead>
+            {% for user in user_list %}
+            <tr>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                {% if user.is_superuser %}
+                <td><input  userid="{{user.id}}" super="0" class="btn btn-default  btn-sm" type="button" value="取消管理员" /></td>
+                {% else %}
+                <td  ><input  userid="{{user.id}}" super="1" class="btn btn-default btn-sm" type="button" value="设置为管理员" /></td>
+                {% endif %}
+                {% if user.is_staff %}
+                <td><input  userid="{{user.id}}" staff="0" class="btn btn-primary btn-primary-staff btn-sm" type="button" value="取消员工staff" /></td>
+                {% else %}
+                <td  ><input  userid="{{user.id}}" staff="1" class="btn btn-primary btn-primary-staff btn-sm" type="button" value="设置为员工staff" /></td>
+                {% endif %}
+               
+            </tr>
+            {% endfor %}
+        </table> 
+    </div>
+{% endblock %}
+<!-- list end -->
+{% block js %}
+<script src="/static/js/userlist.js"></script>
+<script>
+    $(document).on('click', 'input.btn-default', function () {
+
+        var oInput = $(this);
+        var userId = oInput.attr('userid');
+        var Super = oInput.attr('super');
+        $.get('/users/' + userId + '/'+ Super +'/admin/', function (data, status) {
+            if (Super==0 && data.status == 'OK') {
+                oInput.attr('value','设置为管理员').attr('super','1');
+                $().message('取消管理员成功');
+            }else if  (Super==1 && data.status == 'OK') {
+                oInput.attr('value','取消管理员').attr('super','0');
+                $().message('设置管理员成功');
+            }else{
+                $().errormessage('设置失败');
+            }
+        });
+
+    });
+
+    $(document).on('click', 'input.btn-primary-staff', function () {
+
+        var oInput = $(this);
+        var userId = oInput.attr('userid');
+        var staff = oInput.attr('staff');
+        $.get('/users/' + userId + '/'+ staff +'/staff/', function (data, status) {
+            if (staff==0 && data.status == 'OK') {
+                oInput.attr('value','设置为员工staff').attr('staff','1');
+                $().message('取消员工staff成功');
+            }else if  (staff==1 && data.status == 'OK') {
+                oInput.attr('value','取消员工staff').attr('staff','0');
+                $().message('设置为员工staff成功');
+            }else{
+                $().errormessage('设置失败');
+            }
+        });
+
+    });
+
+</script>
+{% endblock %}

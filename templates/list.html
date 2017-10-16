@@ -1,0 +1,130 @@
+{% extends 'base.html' %} 
+{% load staticfiles %}
+  {% block css %}
+  <link href="/static/vendors/dropdown/jquery.dropdown.css" rel="stylesheet">
+  <link href="/static/vendors//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+  <link href="/static/vendors/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+  <link href="/static/css/list.css"  rel="stylesheet">
+   {% endblock %}
+  
+   {% block content %} 
+</form>
+     <div class="container div-search">
+       <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+           <p class="search-title">Find your next experientce</p>
+         </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 text-center div-search-input">
+          <form class="search-form" action="" method="get" >
+                <input class="search-date search-label search-el" value="Date:" disabled="disabled"/>
+                <input class="search-el datefrom" value="{{datefrom}}" name="datefrom" placeholder=" " />
+                <label class="search-line search-label">-</label>
+                <input class="search-el dateto" value="{{dateto}}" name="dateto" placeholder=" " />
+                <input class="search-price search-label search-el" value="Price:" disabled="disabled"/> 
+                <input class="search-el pricefrom" value="{{pricefrom}}"  name="pricefrom"  placeholder="￥" pattern="\d+"/>
+                <label class="search-line search-label">-</label>
+                <input class="search-el priceto" value="{{priceto}}" name="priceto"  placeholder="￥" pattern="\d+"/>
+                <!--
+                <div class="div-select">
+                      <select class="search-el sel-language" name="language" >Language
+                            <option class="option" value="chinese">中文</option>
+                            <option class="option" value="english">English</option>
+                      </select>
+                 </div>-->
+                <button class="search-el search-fa"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </form>
+         </div>
+       </div>
+     </div>
+    <!-- end search -->
+
+    <!-- start list -->
+    {% for product in products %}
+    <div class="container div-list">
+       <div class="row">
+         <div class="col-sm-12 col-md-3 col-lg-3 ">
+                <a href="{% url 'product:detail' product.id %}">
+                  {% if product.thumbnail %}
+                      <img src="{{mediaroot}}{{product.thumbnail}}" class="thumbimage" />
+                      {% else %}
+                      <img src="/static/images/5.png" class="thumbimage" />
+                      {% endif %}
+                      <div class="div-list-price">
+                         
+
+                        <p class="p-list-price" >
+                            {% if product.type == 0 %}
+                            Free
+                            {% else %}
+                              ${{product.pricefrom}} -${{product.priceto}} 
+                           {% endif %}
+                        </p>
+                      </div>
+                </a>
+         </div>
+        <div class="col-sm-12 col-md-9 col-lg-9 ">
+             <a href="{% url 'product:detail' product.id %}">
+                  <div class="div-list-right-top">
+                      <div class="div-list-date">
+                        <p class="p-list-date" >{{product.date|date:'Y-m-d'}} </p>
+                      </div>
+                      <div class="div-list-name">
+                        <p class="p-list-name" >{{product.title|truncatechars:'140'}}
+                        </p>
+                      </div>
+                      
+                      <div class="div-list-address">
+                        <p class="p-list-address" >{{product.location|truncatechars:'40'}}</p>
+                        
+                      </div>
+                      
+                  </div>
+                </a>
+                  <div class="div-list-right-bottom">
+                          <div class="div-list-star">
+                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                            <p class="p-list-categary" datefrom="{{product.datefrom|date:'Y-m-d'}}">{{product.datefrom|date:'Y-m-d H:i'}}  </p>
+                            
+                          </div>
+                          {% if request.user.is_superuser %}
+                          <a class='edit_a' href="{% url 'product:setting' product.id %}">设置</a>
+                          <a class='edit_a' href="{% url 'product:change' product.id %}?pic">
+                            编辑图片
+                        </a>
+                        <a class='edit_a' href="{% url 'product:change' product.id %}">
+                          编辑活动
+                      </a>
+                      <a class='edit_a' href="{% url 'product:attendcies' product.id %}">
+                          查看报名情况
+                      </a>
+                     
+                        {% endif %} 
+                        {% if request.user.is_staff %}
+                        <a class='edit_a' href="{% url 'product:attendcies' product.id %}">
+                          查看报名情况
+                      </a>
+                        {% endif %} 
+                          <div class="div-list-bookmark text-center">
+                            <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
+                          </div>
+                  </div>
+             
+         </div>
+       </div>
+     </div>
+     {% endfor %}
+
+     
+     {% endblock %}
+    <!-- list end -->
+    {% block js %} 
+
+    
+    <script src="/static/vendors/dropdown/jquery.dropdown.js"></script>   
+    <script src="/static/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/static/vendors/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+    <script src="/static/js/list.js"></script> 
+    
+ 
+ {% endblock %} 
+ {% block list %}class="active"{% endblock %}

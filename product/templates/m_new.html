@@ -1,0 +1,41 @@
+{% extends 'm_base.html' %} {% block css %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/wysiwyg.js/dist/wysiwyg-editor.css" />
+<link href="/static/products/css/products.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        {%csrf_token%}
+       <input type="file" name="" />
+       <input type="hidden" name="method" value="detail_file" />
+       <input type="submit" value="upload" />
+    </form>
+    <textarea id="editor" placeholder="Balabala" autofocus></textarea>
+{% endblock %}
+ 
+ {% block js %} 
+<script type="text/javascript" src="/static/plugins/wysiwyg.js/dist/wysiwyg.js"></script>
+<script type="text/javascript" src="/static/plugins/wysiwyg.js/dist/wysiwyg-editor.js"></script>
+<script>
+   $("#editor").wysiwyg({
+    class: 'some-more-classes',
+    toolbar: 'selection'|'top'|'top-focus'|'top-selection'|'top-focus-selection'|'bottom'|'bottom-focus'|'bottom-selection'|'bottom-focus-selection',
+    buttons:{
+        buttonname: {
+            title: 'tooltip text',
+            // How should the button look like?
+            image: '\u1234' | '&lt;img src="path/to/image.jpg"&gt;',
+            html: '&lt;raw html&gt;',
+            // What should the button do?
+            popup: function( $popup, $button ) {   },
+            click: function( $button ) {   },
+            // Where should the button be placed?
+            showstatic: true, // on the static toolbar
+            showselection: true // on selection toolbar
+            // anything else passed as "prop()" ...
+        },
+    },
+   });
+     
+</script>
+{% endblock %}

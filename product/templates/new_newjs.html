@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block pagetitle%}创建{% endblock%}
+ {% block css %}
+<link href="/static/products/css/new.css" rel="stylesheet">
+<link href="/static/vendors//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/vendors/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" /> 
+<link rel="stylesheet" type="text/css" href="/static/plugins/wysiwyg.js/dist/wysiwyg-editor.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/plugins/wysiwyg.js/dist/mine.css" />
+
+{% endblock %} 
+{% block content %}
+<form action="" method="post">
+    {%csrf_token%} 
+    <input type="hidden" name="method" value="detail_file" /> 
+    {% if product %}
+    <input type="hidden" name="productid" id="productid" value="{{product.id}}" /> 
+    {% endif %}
+</form>
+
+<section>
+    <!-- 路径导航 -->
+    <ol class="breadcrumb">
+        <li><a href="/">主页</a></li>
+        <li><a href="{% url 'product:products' %}">活动列表</a></li>
+        <li class="active">发布活动</li> 
+    </ol>
+
+
+    <div  class="form-horizontal">
+        <div class="form-group"> 
+            <label for="id" class="col-sm-2 control-label">活动名称：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" id="title" value="{{product.title}}" placeholder="">
+            </div> 
+        </div>
+
+      
+        <div class="form-group">
+            <label for="message" class="col-sm-2 control-label">商品详情：</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="detail" rows="3">{{product.description|default:''}}</textarea>
+            </div> 
+        </div>
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">活动日期： </label>
+            <div class="col-sm-10"> 
+                <input class="search-el datefrom" value="{{product.datefrom|date:'Y-m-d'}}" id="datefrom" placeholder=" " />
+                <label class="search-line search-label">-</label>
+                <input class="search-el dateto" value="{{product.dateto|date:'Y-m-d'}}" id="dateto" placeholder=" " />
+            </div> 
+        </div>
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">活动地点： </label>
+            <div class="col-sm-10"> 
+                <input class="search-el form-control" value="{{product.location}}" id="location" placeholder="活动地点" />
+                
+            </div> 
+        </div>
+        <div class="form-group">
+                <label for="id" class="col-sm-2 control-label">活动类型： </label>
+                <div class="col-sm-10"> 
+                    {% if product %}
+                    <input type="radio" name="activetype" {% if product.type == 1 %}checked="checked"{% endif %} class="activetype" value="1" />付费
+                    <input type="radio" name="activetype" {% if product.type == 0 %}checked="checked"{% endif %} class="activetype" value="0" />免费
+                    {% else %}
+                     <input type="radio" name="activetype" checked="checked" class="activetype" value="1" />付费
+                     <input type="radio" name="activetype" class="activetype" value="0" />免费
+                     {% endif %}
+                </div> 
+            </div>
+        <div class="form-group activecost">
+            <label for="id" class="col-sm-2 control-label">活动费用： </label>
+            <div class="col-sm-10"> 
+                <input class="search-el pricefrom" value="{{product.pricefrom}}"  id="pricefrom"  placeholder="￥" pattern="\d+\.\d\d"/>
+                <label class="search-line search-label">-</label>
+                <input class="search-el priceto" value="{{product.priceto}}" id="priceto"  placeholder="￥" pattern="\d+\.\d\d"/>
+            </div> 
+        </div>
+    </div>
+    <div class="msg "> </div>
+    <div class="submit "> 
+        <span class="btn-group " role="group " aria-label="... ">
+            <button type="button " class="btn btn-primary product-btn " status="1 ">发布</button>
+            <button type="button " class="btn btn-default product-btn " status="0 ">存草稿</button>
+            <button type="button " class="btn btn-default ">
+            <i class="fa fa-file-text-o " aria-hidden="true "></i>
+        </button>
+     </span>
+    </div>
+</section>
+{% endblock %} {% block js %}
+ 
+ 
+
+<script src="/static/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/vendors/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/static/products/js/new.js "  ></script>
+<script src="/static/js/list.js"></script> 
+<script type="text/javascript" src="/static/plugins/wysiwyg.js/dist/wysiwyg.min.js"></script>
+<script type="text/javascript" src="/static/plugins/wysiwyg.js/dist/wysiwyg-editor.min.js"></script>
+<script type="text/javascript" src="/static/plugins/wysiwyg.js/dist/mine-init.js"></script>
+<script>
+   
+{% if product.type == 0 %}
+$('.activecost').hide( );
+{% endif%}
+</script>
+{% endblock %}

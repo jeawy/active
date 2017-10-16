@@ -1,0 +1,50 @@
+li {
+    display: inline;
+}
+
+ul{
+   padding-left:0px;
+}
+/* 
+input.form-control {
+    border-radius: 0px;
+    border-left-style: none;
+    border-right-style: none;
+}
+ */
+
+form {
+    margin: 0 5%;
+}
+
+button.btn {
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #17324D;
+    color: #fff;
+}
+
+button.btn:hover,button.btn:focus,button.btn:active{
+    color: #eee;
+    background-color: #022241
+}
+.form-control{
+    margin: 30px auto 5px;
+}
+.btn,
+.form-control {
+    height: 47px;
+}
+
+#app-name {
+    color: #d32f2f;
+}
+
+label.error {
+    color: #d9534f;
+    margin: 0px;
+}
+
+input.error {
+    border-color: #d9534f;
+}

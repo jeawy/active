@@ -1,0 +1,9 @@
+table.table{
+    margin:30px 15px;
+}
+tbody>tr:hover{
+    background-color: #fff4b7;
+}
+.table>tbody>tr>td{
+   vertical-align: middle;
+}

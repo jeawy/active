@@ -1,0 +1,168 @@
+/* common */
+body{
+     background: #F8F8FA;
+}
+/* common end */
+
+/* detail style start*/
+.div-detail
+{
+    background-color: #fff;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
+    margin-bottom: 120px;
+    padding-bottom: 120px;
+    padding-top: 60px;
+}
+.bigimage
+{
+    width: 100%;
+}
+.div-detail-right-top
+{
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 20px;
+}
+.p-detail-date
+{
+    color:#666A73;
+    font-size: 14px;
+    font-weight: 300;
+}
+.div-detail-name
+{
+    max-height: 170px;
+    margin: 0 auto; 
+    overflow: hidden;
+    color: #282C35;
+    font-size: 18px;
+    line-height: 20px;
+    min-height: 170px;
+    font-weight: 600;  
+    height: 40px;
+    margin-bottom: 2px;
+    margin-top: 20px;
+}
+.div-detail-price
+{ 
+    color:#282C35;
+    height: 37px;
+    line-height: 37px;
+    margin-bottom: 10px;
+}
+.btn-book
+{
+    border: 1px solid #e1e1e8;
+    background-color: #f7f7f9;;
+    width: 100%;
+    line-height: 44px;
+    font-weight: 600;
+}
+.btn-delete{
+    border: 1px solid #e1e1e8;
+    background-color: #FB1F07;
+    width: 100% !important;
+    line-height: 44px;
+    font-weight: 600;
+    color:white;
+}
+ 
+.btn-book:hover,.btn-book:active{
+    background-color: #e7e7e9;
+    border: 1px solid #d1d1d8;
+}
+.div-detail-fa , .div-transport .fa
+{
+    margin: 20px 0;
+    color: #0278b8;
+}
+ .div-transport .fa{
+     margin: 40px 20px 0 20px;
+     font-size: 20px;
+ }
+.fa-bookmark-o 
+{
+    margin-left: 20px;
+}
+.content-location-title, 
+.content-date-title, .desciption-title
+,.p-tag-share,.p-tag-title
+,.transport-title
+{
+    font-size: 16px;
+    font-weight: bold;
+}
+.div-content-location
+{
+    margin-top: 45px;
+}
+.tag-btn
+{
+    border: 1px solid rgba(0,0,0,.1); 
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.15);
+}
+.tag-btn-share
+{
+    border: 1px solid rgba(0,0,0,.1); 
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #adb0b6;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.15);
+    color:white;
+}
+
+.div-tag-share, .div-tag-title
+{
+    margin-top: 45px;
+}
+#map_container{
+    height: 600px;
+}
+#panel {
+    position: absolute;
+    background-color: white;
+    max-height: 95%;
+    overflow-y: auto;
+    top: 10px;
+    right: 0px;
+    width: 280px;
+    z-index: 1000;
+}
+/* detail style end*/
+
+/* tmp style */
+.menu-tmp
+{
+    margin-top: 120px;
+}
+.navbar-collapse
+{
+    padding: 0px;
+}
+.caret{
+    color:#f6682f;
+}
+.navbar{
+    border-radius: 0px;
+}
+/* tmp style end.*/
+
+#book .modal-dialog{
+    width : 400px;
+}
+#book .form-control{
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#signup-Form{
+    margin: 30px;
+}
+.btn-delete{
+    
+}
+.p-detail-price{
+    color:#f6682f;
+}

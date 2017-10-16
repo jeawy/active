@@ -1,0 +1,188 @@
+{% extends 'base.html' %} {% load staticfiles %} {% block css %}
+<link href="/static/css/home.css" rel="stylesheet"> {% endblock %} {% block content %}
+
+
+<!-- Carousel -->
+<div class="container wrap">
+  <div id="swiper-container" class="swiper-container">
+    <div class="swiper-wrapper">
+      {% if homes %}
+      {% for home in homes %}
+      <div class="swiper-slide">
+          <a href="{% url 'product:detail' home.id %}"><img src="{{mediaroot}}{{home.thumbnail}}" alt="图片加载失败" /></a>
+      </div>
+      {% endfor %}
+      {%else %}
+      <div class="swiper-slide">
+        <a href="javascript:;"><img src="/static/images/slide-1.jpg" alt="图片加载失败" /></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="javascript:;"><img src="/static/images/slide-2.jpg" alt="图片加载失败" /></a>
+      </div>
+      <div class="swiper-slide">
+        <a href="javascript:;"><img src="/static/images/slide-3.jpg" alt="图片加载失败" /></a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Carousel end-->
+
+
+<!-- main contenct-->
+<div class="main">
+  <div class="text-center title">热门活动</div>
+ 
+
+  <div class="container">
+    <div class="row">
+        {% if grids %}
+        {% for grid in grids %}
+         <div class="col-lg-4 col-md-4 col-sm-4">
+            <a href="{% url 'product:detail' grid.id %}">
+              <div class="move-div">
+                <img src="{{mediaroot}}{{grid.thumbnail}}" width="100%" />
+    
+                <div class="conter-text">{{grid.title}}
+                  <div class="hide-box">{{grid.date|date:'Y-m-d'}}</div>
+                </div>
+    
+              </div>
+              <a/>
+          </div>
+        {% endfor %}
+        {% else %}
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-3.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+            </div>
+
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-2.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+            </div>
+
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/sub1.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+            </div>
+
+          </div>
+          <a/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-3.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+            </div>
+
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-2.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+
+            </div>
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-1.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+
+            </div>
+          </div>
+          <a/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/sub2.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+
+            </div>
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-3.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+
+            </div>
+          </div>
+          <a/>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <a href="javascript:;">
+          <div class="move-div">
+            <img src="/static/images/slide-2.jpg" width="100%" />
+
+            <div class="conter-text">Hot title
+              <div class="hide-box">鼠标悬停才能够显示的文字</div>
+            </div>
+          </div>
+          <a/>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- main end-->
+
+<footer class="container">
+
+</footer>
+{% endblock %} {% block js %}
+<script src="/static/plugins/swiper-3.4.1/js/swiper.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script>
+  var mySwiper = new Swiper('.swiper-container', {
+    autoplay: 3000,
+    loop: true,
+    direction: 'vertical',
+  });
+</script>
+{% endblock %}
+{% block home %}class="active"{% endblock %}
